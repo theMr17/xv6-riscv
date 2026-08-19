@@ -154,10 +154,8 @@ UPROGS=\
 	$U/_cp\
 	$U/_mgrep\
 
-FILES = README data/dummy data/gt1 data/gt2 data/gt3
-
-fs.img: mkfs/mkfs $(FILES) $(UPROGS)
-	mkfs/mkfs fs.img $(FILES) $(UPROGS)
+fs.img: mkfs/mkfs README $(UPROGS)
+	mkfs/mkfs fs.img README $(UPROGS)
 
 -include kernel/*.d user/*.d
 
