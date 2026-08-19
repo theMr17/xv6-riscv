@@ -124,3 +124,17 @@ sys_square(void)
   argint(0, &n);
   return n * n;
 }
+
+uint64
+sys_get_child_count(void)
+{
+  return myproc()->child_count;
+}
+
+uint64
+sys_get_process_child_count(void)
+{
+  int n;
+  argint(0, &n);
+  return get_process_child_count(n);
+}

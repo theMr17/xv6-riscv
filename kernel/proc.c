@@ -123,6 +123,7 @@ allocproc(void)
 
 found:
   p->pid = allocpid();
+  p->child_count = 0;
   p->state = USED;
 
   // Allocate a trapframe page.
@@ -168,6 +169,7 @@ freeproc(struct proc *p)
   p->killed = 0;
   p->xstate = 0;
   p->state = UNUSED;
+  p->child_count = 0;
 }
 
 // Create a user page table for a given process, with no user memory,
@@ -293,6 +295,10 @@ kfork(void)
 
   release(&np->lock);
 
+  acquire(&p->lock);
+  p->child_count++;
+  release(&p->lock);
+
   acquire(&wait_lock);
   np->parent = p;
   release(&wait_lock);
@@ -395,6 +401,7 @@ kwait(uint64 addr)
             return -1;
           }
           pp->parent = 0;
+          p->child_count--;
           freeproc(pp);
           release(&pp->lock);
           release(&wait_lock);
@@ -613,6 +620,23 @@ kkill(int pid)
       }
       release(&p->lock);
       return 0;
+    }
+    release(&p->lock);
+  }
+  return -1;
+}
+
+int
+get_process_child_count(int pid)
+{
+  struct proc *p;
+
+  for (p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+    if (p->pid == pid) {
+      int count = p->child_count;
+      release(&p->lock);
+      return count;
     }
     release(&p->lock);
   }
