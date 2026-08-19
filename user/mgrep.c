@@ -15,7 +15,7 @@ main(int argc, char *argv[])
   for (int i = 0; i < childCount; i++) {
     int childPid = fork();
     if (childPid == 0) {
-      char *args[] = {"grep", argv[1], argv[i+2], 0};
+      char *args[] = {"grep", argv[1], argv[i + 2], 0};
       exec("grep", args);
       fprintf(2, "cmd: exec %s failed\n", argv[1]);
       exit(1);
