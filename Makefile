@@ -146,9 +146,18 @@ UPROGS=\
 	$U/_forphan\
 	$U/_dorphan\
 	$U/_sync\
+	$U/_hello\
+	$U/_clear\
+	$U/_head\
+	$U/_tail\
+	$U/_cmd\
+	$U/_cp\
+	$U/_mgrep\
 
-fs.img: mkfs/mkfs README $(UPROGS)
-	mkfs/mkfs fs.img README $(UPROGS)
+FILES = README dummy gt1 gt2 gt3
+
+fs.img: mkfs/mkfs $(FILES) $(UPROGS)
+	mkfs/mkfs fs.img $(FILES) $(UPROGS)
 
 -include kernel/*.d user/*.d
 
