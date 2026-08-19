@@ -116,3 +116,11 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_square(void)
+{
+  int n;
+  argint(0, &n);
+  return n * n;
+}
