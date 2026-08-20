@@ -29,9 +29,11 @@ int getppid(void);
 int square(int);
 int get_child_count(void);
 int get_process_child_count(int);
-int nfork(int, int*);
+int nfork(int, int *);
 int print_syscalls(void);
 int print_process_syscalls(int);
+uint64 get_inode_num(int);
+uint64 get_read_offset(int);
 
 // ulib.c
 int stat(const char *, struct stat *);
