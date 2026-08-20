@@ -138,3 +138,22 @@ sys_get_process_child_count(void)
   argint(0, &n);
   return get_process_child_count(n);
 }
+
+uint64
+sys_nfork(void)
+{
+  int n;
+  uint64 child_pids;
+
+  argint(0, &n);
+  argaddr(1, &child_pids);
+
+  for (int i = 0; i < n; i++) {
+    int pid = kfork();
+    if (pid >= 0) {
+      copyout(myproc()->pagetable, myproc()->sz, child_pids + i * sizeof(int), (char *)&pid, sizeof(int));
+    }
+  }
+
+  return n;
+}
