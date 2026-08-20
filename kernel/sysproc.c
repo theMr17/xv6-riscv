@@ -151,9 +151,32 @@ sys_nfork(void)
   for (int i = 0; i < n; i++) {
     int pid = kfork();
     if (pid >= 0) {
-      copyout(myproc()->pagetable, myproc()->sz, child_pids + i * sizeof(int), (char *)&pid, sizeof(int));
+      copyout(myproc()->pagetable, myproc()->sz, child_pids + i * sizeof(int),
+              (char *)&pid, sizeof(int));
     }
   }
 
   return n;
+}
+
+uint64
+sys_print_syscalls(void)
+{
+  struct proc *p = myproc();
+  printk("Syscall counts for current process:\n");
+  printk("syscall_number\tinvocations\n");
+  for (int i = 1; i <= SYS_EOF; i++) {
+    if (p->syscall_counts[i] > 0) {
+      printk("%d\t\t%d\n", i, p->syscall_counts[i]);
+    }
+  }
+  return 0;
+}
+
+uint64
+sys_print_process_syscalls(void)
+{
+  int pid;
+  argint(0, &pid);
+  return print_process_syscalls(pid);
 }

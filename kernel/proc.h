@@ -1,4 +1,6 @@
 // Saved registers for kernel context switches.
+#include "syscall.h"
+
 struct context {
   uint64 ra;
   uint64 sp;
@@ -89,6 +91,7 @@ struct proc {
   int xstate;           // Exit status to be returned to parent's wait
   int pid;              // Process ID
   int child_count;
+  int syscall_counts[SYS_EOF + 1];
 
   // wait_lock must be held when using this:
   struct proc *parent; // Parent process
