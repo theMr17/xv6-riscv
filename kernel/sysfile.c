@@ -535,3 +535,33 @@ sys_get_read_offset(void)
     return -1;
   return f->off;
 }
+
+uint64
+sys_peek2(void)
+{
+  struct file *f;
+  int n;
+  uint64 p;
+
+  if(argfd(0, 0, &f) < 0)
+    return -1;
+  argaddr(1, &p);
+  argint(2, &n);
+
+  if(f->type != FD_INODE)
+    return -1;
+  if(f->readable == 0)
+    return -1;
+
+  int r;
+  ilock(f->ip);
+  r = readi(f->ip, 1, p, f->off, n);
+  iunlock(f->ip);
+
+  if(r == 0)
+    return -2;
+  if(r < 0)
+    return -1;
+    
+  return r;
+}
