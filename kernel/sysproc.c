@@ -180,3 +180,11 @@ sys_print_process_syscalls(void)
   argint(0, &pid);
   return print_process_syscalls(pid);
 }
+
+int
+sys_pte_valid(void)
+{
+  uint64 va;
+  argaddr(0, &va);
+  return ismapped(myproc()->pagetable, va);
+}

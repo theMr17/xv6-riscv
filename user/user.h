@@ -34,7 +34,8 @@ int print_syscalls(void);
 int print_process_syscalls(int);
 uint64 get_inode_num(int);
 uint64 get_read_offset(int);
-int peek2(int, char*, int);
+int peek2(int, char *, int);
+int pte_valid(uint64 va);
 
 // ulib.c
 int stat(const char *, struct stat *);
