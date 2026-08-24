@@ -752,3 +752,17 @@ procdump(void)
     printk("\n");
   }
 }
+
+int getvasize(int pid) {
+  struct proc *p;
+  for (p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+    if (p->pid == pid) {
+      int sz = p->sz;
+      release(&p->lock);
+      return sz;
+    }
+    release(&p->lock);
+  }
+  return -1;
+}

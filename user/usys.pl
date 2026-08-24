@@ -55,3 +55,4 @@ entry("get_read_offset");
 entry("peek2");
 entry("pte_valid");
 entry("va2pa");
+entry("getvasize");

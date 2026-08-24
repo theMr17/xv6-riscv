@@ -196,3 +196,11 @@ sys_va2pa(void)
   argaddr(0, &va);
   return walkaddr(myproc()->pagetable, va);
 }
+
+int
+sys_getvasize(void)
+{
+  int pid;
+  argint(0, &pid);
+  return getvasize(pid);
+}

@@ -33,5 +33,6 @@
 #define SYS_peek2                   32
 #define SYS_pte_valid               33
 #define SYS_va2pa                   34
+#define SYS_getvasize               35
 
-#define SYS_EOF 34
+#define SYS_EOF 35

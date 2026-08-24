@@ -164,6 +164,7 @@ UPROGS=\
 	$U/_t1_va2pa\
 	$U/_t2_va2pa\
 	$U/_t3_va2pa\
+	$U/_v_getvasize\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
