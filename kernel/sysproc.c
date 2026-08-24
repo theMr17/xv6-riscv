@@ -188,3 +188,11 @@ sys_pte_valid(void)
   argaddr(0, &va);
   return ismapped(myproc()->pagetable, va);
 }
+
+uint64
+sys_va2pa(void)
+{
+  uint64 va;
+  argaddr(0, &va);
+  return walkaddr(myproc()->pagetable, va);
+}
