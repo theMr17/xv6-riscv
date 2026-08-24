@@ -204,3 +204,12 @@ sys_getvasize(void)
   argint(0, &pid);
   return getvasize(pid);
 }
+
+uint64
+sys_get_pteflags(void)
+{
+  uint64 va;
+  argaddr(0, &va);
+  get_pteflags(va);
+  return 0;
+}

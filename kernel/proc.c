@@ -753,7 +753,9 @@ procdump(void)
   }
 }
 
-int getvasize(int pid) {
+int
+getvasize(int pid)
+{
   struct proc *p;
   for (p = proc; p < &proc[NPROC]; p++) {
     acquire(&p->lock);
@@ -765,4 +767,22 @@ int getvasize(int pid) {
     release(&p->lock);
   }
   return -1;
+}
+
+void
+get_pteflags(uint64 va)
+{
+  pte_t *pte;
+  pte = walk(myproc()->pagetable, va, 0);
+  if (pte == 0) {
+    return;
+  }
+
+  if ((*pte & PTE_V) == 0) {
+    return;
+  }
+
+  printk("VA: %p -> R:%d W:%d X:%d U:%d\n", (void *)va, (*pte & PTE_R) ? 1 : 0,
+         (*pte & PTE_W) ? 1 : 0, (*pte & PTE_X) ? 1 : 0,
+         (*pte & PTE_U) ? 1 : 0);
 }

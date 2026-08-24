@@ -54,5 +54,6 @@ entry("get_inode_num");
 entry("get_read_offset");
 entry("peek2");
 entry("pte_valid");
+entry("get_pteflags");
 entry("va2pa");
 entry("getvasize");

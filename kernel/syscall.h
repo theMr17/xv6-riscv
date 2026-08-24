@@ -32,7 +32,8 @@
 #define SYS_get_read_offset         31
 #define SYS_peek2                   32
 #define SYS_pte_valid               33
-#define SYS_va2pa                   34
-#define SYS_getvasize               35
+#define SYS_get_pteflags            34
+#define SYS_va2pa                   35
+#define SYS_getvasize               36
 
-#define SYS_EOF 35
+#define SYS_EOF 36
